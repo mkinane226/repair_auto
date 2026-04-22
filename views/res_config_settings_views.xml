@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Injection dans le bloc de configuration repair de base_repair_config -->
+    <record id="res_config_settings_view_form_garage" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.garage</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_repair_config.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='repair_setting_container']" position="inside">
+                <setting string="Immatriculation obligatoire" help="Rendre le champ véhicule obligatoire sur les ordres de réparation.">
+                    <field name="garage_require_vehicle"/>
+                </setting>
+                <setting string="Kilométrage obligatoire" help="Obliger la saisie du kilométrage à l'entrée du véhicule.">
+                    <field name="garage_require_mileage"/>
+                </setting>
+                <setting string="Notifications SMS client" help="Envoyer des SMS automatiques lors des changements d'état.">
+                    <field name="garage_sms_notifications"/>
+                </setting>
+                <setting string="Clôture auto après paiement" help="Marquer l'ordre terminé dès que la facture associée est payée.">
+                    <field name="garage_auto_close_on_payment"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_garage_vehicle_stock_user,Véhicule Stock User,model_garage_vehicle,stock.group_stock_user,1,1,1,0
+access_garage_vehicle_reception,Véhicule Réception,model_garage_vehicle,repair_auto.group_garage_reception,1,1,1,0
+access_garage_vehicle_technician,Véhicule Technicien,model_garage_vehicle,repair_auto.group_garage_technician,1,0,0,0
+access_garage_vehicle_manager,Véhicule Responsable,model_garage_vehicle,repair_auto.group_garage_manager,1,1,1,1

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════════
+         Application principale "Garage Auto"
+         Utilise le menu racine repair.menu_repair_order natif
+         et y ajoute des sous-menus spécifiques garage
+         ═══════════════════════════════════════════════════════════════════ -->
+
+    <!-- Masquer le menu "Commandes" natif repair -->
+    <record id="repair.repair_order_menu" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Dashboard kanban — premier sous-menu -->
+    <menuitem
+        id="menu_garage_dashboard"
+        name="Tableau de bord"
+        parent="repair.menu_repair_order"
+        action="action_repair_auto_kanban"
+        sequence="1"
+        groups="stock.group_stock_user"
+    />
+
+    <!-- Interventions (liste complète) -->
+    <menuitem
+        id="menu_garage_interventions"
+        name="Interventions"
+        parent="repair.menu_repair_order"
+        action="action_repair_auto_order_list"
+        sequence="5"
+        groups="stock.group_stock_user"
+    />
+
+    <!-- Véhicules — juste après Interventions -->
+    <menuitem
+        id="menu_garage_vehicles"
+        name="Véhicules"
+        parent="repair.menu_repair_order"
+        action="action_garage_vehicle"
+        sequence="6"
+        groups="stock.group_stock_user"
+    />
+
+    <!-- Séparateur Configuration -->
+    <menuitem
+        id="menu_garage_config_root"
+        name="Configuration Garage"
+        parent="repair.repair_menu_config"
+        sequence="50"
+        groups="stock.group_stock_manager"
+    />
+
+    <!-- Étiquettes (tags) -->
+    <menuitem
+        id="menu_garage_tags"
+        name="Étiquettes d'intervention"
+        parent="repair.repair_menu_config"
+        action="repair.action_repair_order_tag"
+        sequence="10"
+        groups="stock.group_stock_manager"
+    />
+</odoo>

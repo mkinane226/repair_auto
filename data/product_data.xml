@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Produit générique "Véhicule" utilisé comme article principal
+         sur les ordres de réparation automobiles -->
+    <record id="product_vehicle_generic" model="product.template">
+        <field name="name">Véhicule</field>
+        <field name="default_code">VEHICULE</field>
+        <field name="type">consu</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+        <field name="description_sale">Véhicule confié pour réparation</field>
+    </record>
+</odoo>

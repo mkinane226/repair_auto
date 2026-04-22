@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="repair_tag_vidange" model="repair.tags">
+        <field name="name">Vidange</field>
+        <field name="color">1</field>
+    </record>
+    <record id="repair_tag_freinage" model="repair.tags">
+        <field name="name">Freinage</field>
+        <field name="color">2</field>
+    </record>
+    <record id="repair_tag_pneumatiques" model="repair.tags">
+        <field name="name">Pneumatiques</field>
+        <field name="color">3</field>
+    </record>
+    <record id="repair_tag_distribution" model="repair.tags">
+        <field name="name">Distribution</field>
+        <field name="color">4</field>
+    </record>
+    <record id="repair_tag_climatisation" model="repair.tags">
+        <field name="name">Climatisation</field>
+        <field name="color">5</field>
+    </record>
+    <record id="repair_tag_carrosserie" model="repair.tags">
+        <field name="name">Carrosserie</field>
+        <field name="color">6</field>
+    </record>
+    <record id="repair_tag_electronique" model="repair.tags">
+        <field name="name">Électronique</field>
+        <field name="color">7</field>
+    </record>
+    <record id="repair_tag_controle_technique" model="repair.tags">
+        <field name="name">Contrôle technique</field>
+        <field name="color">8</field>
+    </record>
+</odoo>

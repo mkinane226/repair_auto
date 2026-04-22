@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════════
+         Rapport d'intervention automobile — Garage Auto
+         Wrapper complet (n'hérite pas du natif pour contrôle total)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <template id="report_repairorder_garage_document">
+        <t t-set="o" t-value="doc"/>
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <div class="oe_structure"/>
+
+                <!-- ── Titre ────────────────────────────────────────────── -->
+                <h2>
+                    <span>Ordre de réparation </span>
+                    <span t-field="o.name"/>
+                </h2>
+                <div class="oe_structure"/>
+
+                <!-- ── Informations générales ────────────────────────────── -->
+                <div id="informations" class="row mb-3">
+                    <div class="col-6">
+                        <p t-if="o.partner_id" class="m-0">
+                            <strong>Client :</strong>
+                            <span t-field="o.partner_id"/>
+                        </p>
+                        <p t-if="o.user_id" class="m-0">
+                            <strong>Responsable :</strong>
+                            <span t-field="o.user_id"/>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="m-0">
+                            <strong>État :</strong>
+                            <span t-field="o.state"/>
+                        </p>
+                        <p t-if="o.schedule_date" class="m-0">
+                            <strong>Date planifiée :</strong>
+                            <span t-field="o.schedule_date" t-options='{"widget": "date"}'/>
+                        </p>
+                        <p t-if="o.tag_ids" class="m-0">
+                            <strong>Étiquettes :</strong>
+                            <span t-esc="', '.join(o.tag_ids.mapped('name'))"/>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ── Bloc véhicule ─────────────────────────────────────── -->
+                <t t-if="o.vehicle_id">
+                    <div class="oe_structure"/>
+                    <h3 class="mb-2 border-bottom border-2 border-dark">Véhicule</h3>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <p class="m-0">
+                                <strong>Immatriculation :</strong>
+                                <span t-field="o.vehicle_id.license_plate"/>
+                            </p>
+                            <p class="m-0">
+                                <strong>Marque / Modèle :</strong>
+                                <span t-esc="(o.vehicle_id.marque or '') + ' ' + (o.vehicle_id.modele or '')"/>
+                            </p>
+                            <p t-if="o.vehicle_id.annee" class="m-0">
+                                <strong>Année :</strong>
+                                <span t-field="o.vehicle_id.annee"/>
+                            </p>
+                            <p t-if="o.vehicle_id.energie" class="m-0">
+                                <strong>Énergie :</strong>
+                                <span t-field="o.vehicle_id.energie"/>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p t-if="o.vehicle_id.vin" class="m-0">
+                                <strong>VIN :</strong>
+                                <span t-field="o.vehicle_id.vin"/>
+                            </p>
+                            <p t-if="o.mileage_in" class="m-0">
+                                <strong>Km entrée :</strong>
+                                <span t-field="o.mileage_in"/> km
+                            </p>
+                            <p t-if="o.mileage_out" class="m-0">
+                                <strong>Km sortie :</strong>
+                                <span t-field="o.mileage_out"/> km
+                            </p>
+                            <p t-if="o.fuel_level" class="m-0">
+                                <strong>Carburant :</strong>
+                                <span t-field="o.fuel_level"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <p t-if="o.date_checkin" class="m-0">
+                                <strong>Entrée :</strong>
+                                <span t-field="o.date_checkin" t-options='{"widget": "datetime"}'/>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p t-if="o.date_checkout" class="m-0">
+                                <strong>Sortie :</strong>
+                                <span t-field="o.date_checkout" t-options='{"widget": "datetime"}'/>
+                            </p>
+                        </div>
+                    </div>
+                </t>
+
+                <!-- ── Plainte client ─────────────────────────────────────── -->
+                <t t-if="o.customer_complaint">
+                    <div class="oe_structure"/>
+                    <h3 class="mb-2 border-bottom border-2 border-dark">Plainte client</h3>
+                    <p t-field="o.customer_complaint" class="mb-3"/>
+                </t>
+
+                <!-- ── Diagnostic technicien ──────────────────────────────── -->
+                <t t-if="o.diagnosis_notes">
+                    <div class="oe_structure"/>
+                    <h3 class="mb-2 border-bottom border-2 border-dark">Diagnostic technicien</h3>
+                    <p t-field="o.diagnosis_notes" class="mb-3"/>
+                </t>
+
+                <!-- ── Pièces ─────────────────────────────────────────────── -->
+                <div class="oe_structure"/>
+                <h3 class="mb-3 border-bottom border-2 border-dark">Pièces</h3>
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-center">Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.move_ids" t-as="line">
+                            <td>
+                                <t t-if="line.repair_line_type == 'add'">
+                                    <i>(Ajout)</i>
+                                </t>
+                                <t t-elif="line.repair_line_type == 'remove'">
+                                    <i>(Dépose)</i>
+                                </t>
+                                <t t-else="">
+                                    <i>(Recyclage)</i>
+                                </t>
+                                <span t-field="line.product_id"/>
+                            </td>
+                            <td class="text-center">
+                                <span t-field="line.product_uom_qty"/>
+                                <span groups="uom.group_uom" t-field="line.product_uom.name"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- ── Services (OCA repair_service) ─────────────────────── -->
+                <t t-if="o.service_ids">
+                    <div class="oe_structure"/>
+                    <h3 class="mb-3 border-bottom border-2 border-dark">Main-d'œuvre</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th class="text-center">Qté</th>
+                                <th class="text-end">Montant</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.service_ids" t-as="svc">
+                                <td><span t-field="svc.product_id"/></td>
+                                <td class="text-center"><span t-field="svc.product_uom_qty"/></td>
+                                <td class="text-end">
+                                    <span t-field="svc.price_subtotal"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+
+                <!-- ── Notes de réparation ────────────────────────────────── -->
+                <t t-if="o.internal_notes">
+                    <div class="oe_structure"/>
+                    <h3 class="mb-2 border-bottom border-2 border-dark">Notes</h3>
+                    <span t-field="o.internal_notes"/>
+                </t>
+
+                <!-- ── Zone de signature ──────────────────────────────────── -->
+                <div class="oe_structure"/>
+                <div class="row mt-5">
+                    <div class="col-6">
+                        <p><strong>Signature client</strong></p>
+                        <div style="border-bottom: 1px solid #000; height: 60px; margin-top: 20px;"/>
+                        <p class="text-muted" style="font-size:0.8em;">
+                            Lu et approuvé — Bon pour accord
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>Cachet du garage</strong></p>
+                        <div style="height: 80px;"/>
+                    </div>
+                </div>
+
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <!-- Wrapper multi-document -->
+    <template id="report_repairorder_garage">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="repair_auto.report_repairorder_garage_document"
+                   t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

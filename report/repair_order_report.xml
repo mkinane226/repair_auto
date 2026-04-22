@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Héritage du rapport natif repair.order — ajout bloc véhicule -->
+    <record id="action_report_repair_order_auto" model="ir.actions.report">
+        <field name="name">Rapport d'intervention garage</field>
+        <field name="model">repair.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">repair_auto.report_repairorder_garage</field>
+        <field name="report_file">repair_auto.report_repairorder_garage</field>
+        <field name="binding_model_id" search="[('model', '=', 'repair.order')]" model="ir.model"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

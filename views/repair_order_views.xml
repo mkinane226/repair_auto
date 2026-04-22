@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════════
+         Héritage de la vue formulaire native repair.order
+         ═══════════════════════════════════════════════════════════════════ -->
+    <record id="view_repair_order_form_garage" model="ir.ui.view">
+        <field name="name">repair.order.form.garage</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- 1. Smart button factures dans button_box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_invoices" type="object"
+                        class="oe_stat_button" icon="fa-pencil-square-o"
+                        invisible="invoice_count == 0">
+                    <field name="invoice_count" widget="statinfo" string="Factures"/>
+                </button>
+            </xpath>
+
+            <!-- 2. Bloc véhicule — inséré avant partner_id dans le premier group -->
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="vehicle_id"
+                       context="{'default_partner_id': partner_id}"
+                       options="{'no_quick_create': True}"/>
+                <field name="date_checkin"/>
+                <field name="estimated_completion"/>
+            </xpath>
+
+            <!-- 3. Champs kilométrage / carburant — après partner_id -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="mileage_in" string="Km entrée" invisible="not vehicle_id"/>
+                <field name="fuel_level" invisible="not vehicle_id"/>
+            </xpath>
+
+            <!-- 4. Page "Réception" ajoutée dans le notebook (avant "Repair Notes") -->
+            <xpath expr="//page[@name='repair_notes']" position="before">
+                <page string="Réception / Restitution" name="garage_reception">
+                    <group>
+                        <group string="Plainte client">
+                            <field name="customer_complaint" nolabel="1"
+                                   placeholder="Décrire le problème signalé par le client…"/>
+                        </group>
+                        <group string="Diagnostic technicien">
+                            <field name="diagnosis_notes" nolabel="1"
+                                   placeholder="Observations et conclusions du technicien…"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Restitution">
+                            <field name="mileage_out" string="Km sortie" invisible="not vehicle_id"/>
+                            <field name="date_checkout" invisible="not vehicle_id"/>
+                        </group>
+                        <group string="Totaux">
+                            <field name="labor_total" string="Main-d'œuvre"/>
+                            <field name="parts_total" string="Pièces"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- 5. Champs techniques invisibles requis pour les computed -->
+            <xpath expr="//form/field[@name='has_uncomplete_moves']" position="after">
+                <field name="invoice_count" invisible="1"/>
+                <field name="invoice_state" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Vue liste enrichie avec colonne véhicule
+         ═══════════════════════════════════════════════════════════════════ -->
+    <record id="view_repair_order_list_garage" model="ir.ui.view">
+        <field name="name">repair.order.list.garage</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+        <field name="arch" type="xml">
+            <!-- Insérer la colonne véhicule juste après le numéro d'ordre -->
+            <xpath expr="//list/field[@name='name']" position="after">
+                <field name="vehicle_id" string="Véhicule" optional="show"/>
+            </xpath>
+            <xpath expr="//list/field[@name='partner_id']" position="after">
+                <field name="mileage_in" string="Km entrée" optional="hide"/>
+                <field name="date_checkin" string="Entrée" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Action liste ordres de réparation (utilisée par notre menu)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <record id="action_repair_auto_order_list" model="ir.actions.act_window">
+        <field name="name">Interventions</field>
+        <field name="res_model">repair.order</field>
+        <field name="view_mode">list,form,kanban,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer un ordre de réparation
+            </p>
+            <p>
+                Gérez toutes les interventions de votre garage,
+                de la prise en charge à la restitution du véhicule.
+            </p>
+        </field>
+    </record>
+</odoo>

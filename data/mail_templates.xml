@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ── Confirmation de l'ordre ─────────────────────────────────────── -->
+    <record id="mail_template_repair_confirmed" model="mail.template">
+        <field name="name">Réparation — Confirmation de prise en charge</field>
+        <field name="model_id" ref="repair.model_repair_order"/>
+        <field name="subject">Votre véhicule {{ object.vehicle_id.license_plate or object.name }} a bien été réceptionné</field>
+        <field name="body_html" type="html">
+<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>
+    Nous avons bien réceptionné votre véhicule
+    <strong><t t-out="object.vehicle_id.display_name or object.name"/></strong>
+    le <t t-out="object.date_checkin and object.date_checkin.strftime('%d/%m/%Y') or ''"/>.
+</p>
+<t t-if="object.estimated_completion">
+<p>Fin estimée des travaux : <strong><t t-out="object.estimated_completion.strftime('%d/%m/%Y %H:%M')"/></strong>.</p>
+</t>
+<p>Numéro de dossier : <strong><t t-out="object.name"/></strong></p>
+<p>Cordialement,<br/><t t-out="object.company_id.name"/></p>
+        </field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete">True</field>
+    </record>
+
+    <!-- ── Réparation en cours ────────────────────────────────────────── -->
+    <record id="mail_template_repair_started" model="mail.template">
+        <field name="name">Réparation — Travaux démarrés</field>
+        <field name="model_id" ref="repair.model_repair_order"/>
+        <field name="subject">Les travaux sur votre véhicule {{ object.vehicle_id.license_plate or object.name }} ont débuté</field>
+        <field name="body_html" type="html">
+<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>
+    Nos techniciens ont démarré les travaux sur votre véhicule
+    <strong><t t-out="object.vehicle_id.display_name or object.name"/></strong>.
+</p>
+<t t-if="object.diagnosis_notes">
+<p><strong>Diagnostic :</strong><br/><t t-out="object.diagnosis_notes"/></p>
+</t>
+<p>Nous vous tiendrons informé(e) de l'avancement.</p>
+<p>Cordialement,<br/><t t-out="object.company_id.name"/></p>
+        </field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete">True</field>
+    </record>
+
+    <!-- ── Réparation terminée ────────────────────────────────────────── -->
+    <record id="mail_template_repair_done" model="mail.template">
+        <field name="name">Réparation — Véhicule prêt</field>
+        <field name="model_id" ref="repair.model_repair_order"/>
+        <field name="subject">Votre véhicule {{ object.vehicle_id.license_plate or object.name }} est prêt</field>
+        <field name="body_html" type="html">
+<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>
+    Les travaux sur votre véhicule
+    <strong><t t-out="object.vehicle_id.display_name or object.name"/></strong>
+    sont terminés. Il est disponible pour récupération.
+</p>
+<t t-if="object.mileage_out">
+<p>Kilométrage à la sortie : <strong><t t-out="object.mileage_out"/> km</strong></p>
+</t>
+<p>Nous vous remercions de votre confiance.</p>
+<p>Cordialement,<br/><t t-out="object.company_id.name"/></p>
+        </field>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete">True</field>
+    </record>
+</odoo>

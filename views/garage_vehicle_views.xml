@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ── Vue liste ─────────────────────────────────────────────────────── -->
+    <record id="view_garage_vehicle_list" model="ir.ui.view">
+        <field name="name">garage.vehicle.list</field>
+        <field name="model">garage.vehicle</field>
+        <field name="arch" type="xml">
+            <list string="Véhicules" multi_edit="1" decoration-muted="not active">
+                <field name="license_plate" string="Immatriculation"/>
+                <field name="partner_id" string="Client"/>
+                <field name="marque"/>
+                <field name="modele"/>
+                <field name="annee" optional="show"/>
+                <field name="energie" optional="show" widget="badge"/>
+                <field name="mileage" string="Km" optional="show"/>
+                <field name="repair_count" string="Réparations" optional="show"/>
+                <field name="last_repair_date" string="Dernière réparation" optional="hide"/>
+                <field name="active" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Vue formulaire ────────────────────────────────────────────────── -->
+    <record id="view_garage_vehicle_form" model="ir.ui.view">
+        <field name="name">garage.vehicle.form</field>
+        <field name="model">garage.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Fiche Véhicule">
+                <sheet>
+                    <!-- Smart buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_repairs" type="object"
+                                class="oe_stat_button" icon="fa-wrench"
+                                invisible="repair_count == 0">
+                            <field name="repair_count" widget="statinfo" string="Réparations"/>
+                        </button>
+                    </div>
+                    <!-- Photo & titre -->
+                    <field name="image_128" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="o_form_label" for="license_plate"/>
+                        <h1>
+                            <field name="license_plate" placeholder="AA-000-AA"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="marque" placeholder="Marque" class="me-2"/>
+                            <field name="modele" placeholder="Modèle"/>
+                        </div>
+                    </div>
+                    <!-- Corps principal -->
+                    <group>
+                        <group string="Identification">
+                            <field name="partner_id" widget="res_partner_many2one"
+                                   context="{'res_partner_search_mode': 'customer'}"/>
+                            <field name="vin" placeholder="17 caractères"/>
+                            <field name="annee"/>
+                            <field name="couleur"/>
+                            <field name="energie"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="État">
+                            <field name="mileage" string="Kilométrage (km)"/>
+                            <field name="last_repair_date" string="Dernière réparation" readonly="1"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <!-- Onglets -->
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="note" placeholder="Notes internes sur ce véhicule…"/>
+                        </page>
+                        <page string="Historique" name="history">
+                            <field name="repair_ids" readonly="1">
+                                <list string="Réparations">
+                                    <field name="name"/>
+                                    <field name="date_checkin" string="Entrée"/>
+                                    <field name="mileage_in" string="Km entrée"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'done'"
+                                           decoration-info="state == 'under_repair'"
+                                           decoration-warning="state == 'confirmed'"/>
+                                    <field name="user_id" string="Technicien"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Vue recherche ─────────────────────────────────────────────────── -->
+    <record id="view_garage_vehicle_search" model="ir.ui.view">
+        <field name="name">garage.vehicle.search</field>
+        <field name="model">garage.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un véhicule">
+                <field name="license_plate" string="Immatriculation" filter_domain="[('license_plate', 'ilike', self)]"/>
+                <field name="partner_id" string="Client"/>
+                <field name="marque"/>
+                <field name="modele"/>
+                <field name="vin" string="VIN"/>
+                <separator/>
+                <filter string="Essence" name="gasoline" domain="[('energie','=','gasoline')]"/>
+                <filter string="Diesel" name="diesel" domain="[('energie','=','diesel')]"/>
+                <filter string="Électrique" name="electric" domain="[('energie','=','electric')]"/>
+                <filter string="Hybride" name="hybrid" domain="[('energie','=','hybrid')]"/>
+                <separator/>
+                <filter string="Archivés" name="inactive" domain="[('active','=',False)]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter string="Client" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Marque" name="group_marque" context="{'group_by': 'marque'}"/>
+                    <filter string="Énergie" name="group_energie" context="{'group_by': 'energie'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Action fenêtre ────────────────────────────────────────────────── -->
+    <record id="action_garage_vehicle" model="ir.actions.act_window">
+        <field name="name">Véhicules</field>
+        <field name="res_model">garage.vehicle</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_garage_vehicle_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer la première fiche véhicule
+            </p>
+            <p>
+                Enregistrez les véhicules de vos clients pour un suivi
+                complet de l'historique des réparations.
+            </p>
+        </field>
+    </record>
+</odoo>
