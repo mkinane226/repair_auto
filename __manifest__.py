@@ -27,7 +27,13 @@ Module professionnel SaaS pour les garages automobiles.
         'repair_type',
         'repair_stock',
         'mail',
+        'sale',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'repair_auto/static/src/js/repair_remaining_days_field.js',
+        ],
+    },
     'data': [
         'security/garage_security.xml',
         'security/ir.model.access.csv',
@@ -41,6 +47,7 @@ Module professionnel SaaS pour les garages automobiles.
         'views/menu_views.xml',
         'report/repair_order_report.xml',
         'report/repair_order_template.xml',
+        'report/report_invoice_vehicle.xml',
     ],
     'application': False,
     'installable': True,

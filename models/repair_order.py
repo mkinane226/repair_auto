@@ -71,6 +71,7 @@ class RepairOrder(models.Model):
         compute="_compute_invoice_stats",
     )
 
+
     # ── Devise (relatée depuis la société) ───────────────────────────────────
     currency_id = fields.Many2one(
         comodel_name="res.currency",

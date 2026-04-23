@@ -117,11 +117,81 @@
         </field>
     </record>
 
+    <!-- ── Vue kanban ──────────────────────────────────────────────────── -->
+    <record id="view_garage_vehicle_kanban" model="ir.ui.view">
+        <field name="name">garage.vehicle.kanban</field>
+        <field name="model">garage.vehicle</field>
+        <field name="arch" type="xml">
+            <kanban string="Véhicules" default_group_by="marque"
+                    class="o_kanban_small_column" sample="1">
+                <field name="id"/>
+                <field name="license_plate"/>
+                <field name="partner_id"/>
+                <field name="marque"/>
+                <field name="modele"/>
+                <field name="annee"/>
+                <field name="energie"/>
+                <field name="mileage"/>
+                <field name="repair_count"/>
+                <field name="image_128"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_card_header">
+                            <div class="o_kanban_card_header_image">
+                                <field name="image_128" widget="image"
+                                       class="o_image_64_cover"
+                                       alt="Véhicule"/>
+                            </div>
+                            <div class="o_kanban_card_header_title">
+                                <div class="o_primary">
+                                    <strong><field name="license_plate"/></strong>
+                                </div>
+                                <div class="o_secondary">
+                                    <field name="marque"/> <field name="modele"/>
+                                    <t t-if="record.annee.value">
+                                        (<field name="annee"/>)
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_kanban_card_content">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <i class="fa fa-user me-1" title="Client"/>
+                                    <field name="partner_id"/>
+                                </li>
+                                <li t-if="record.energie.value">
+                                    <i class="fa fa-leaf me-1" title="Énergie"/>
+                                    <field name="energie" widget="badge"/>
+                                </li>
+                                <li t-if="record.mileage.value">
+                                    <i class="fa fa-road me-1" title="Kilométrage"/>
+                                    <field name="mileage"/> km
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="o_kanban_card_manage_section o_kanban_card_footer">
+                            <div class="o_kanban_manage_button_section">
+                                <a name="action_view_repairs" type="object"
+                                   class="btn btn-sm btn-light" role="button"
+                                   t-if="record.repair_count.value > 0">
+                                    <i class="fa fa-wrench me-1" title="Réparations"/>
+                                    <field name="repair_count"/> réparation(s)
+                                </a>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- ── Action fenêtre ────────────────────────────────────────────────── -->
     <record id="action_garage_vehicle" model="ir.actions.act_window">
         <field name="name">Véhicules</field>
         <field name="res_model">garage.vehicle</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="search_view_id" ref="view_garage_vehicle_search"/>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">

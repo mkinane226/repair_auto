@@ -33,16 +33,16 @@
                             </div>
                             <!-- Véhicule -->
                             <div t-if="record.vehicle_id.raw_value" class="o_kanban_record_subtitle">
-                                <i class="fa fa-car me-1"/>
+                                <i class="fa fa-car me-1" title="Véhicule"/>
                                 <field name="vehicle_id"/>
                             </div>
                             <!-- Client -->
                             <div class="o_kanban_record_subtitle">
-                                <field name="partner_id" widget="res_partner_many2one"/>
+                                <field name="partner_id"/>
                             </div>
                             <!-- Date planifiée -->
                             <div t-if="record.schedule_date.raw_value" class="o_kanban_record_subtitle text-muted">
-                                <i class="fa fa-calendar me-1"/>
+                                <i class="fa fa-calendar me-1" title="Date planifiée"/>
                                 <field name="schedule_date" widget="date"/>
                             </div>
                             <!-- Bas de carte : avatar utilisateur + tags -->

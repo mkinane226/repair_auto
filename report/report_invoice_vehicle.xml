@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ════════════════════════════════════════════════════════════════════
+         Héritage du template de facture — ajout bloc véhicule(s) réparé(s)
+         Le bloc s'affiche uniquement si la facture est liée à au moins
+         un ordre de réparation ayant un véhicule.
+         ═══════════════════════════════════════════════════════════════════ -->
+    <template id="report_invoice_vehicle" inherit_id="account.report_invoice_document">
+        <!-- Injecter le bloc véhicule juste après le div#informations -->
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-if="o.repair_vehicle_ids">
+                <div class="row mb-3 mt-2">
+                    <div class="col-12">
+                        <table class="table table-sm table-bordered mb-0"
+                               style="font-size:0.9em;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>IMMAT</th>
+                                    <th>Marque / Modèle</th>
+                                    <th>Année</th>
+                                    <th>VIN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.repair_vehicle_ids" t-as="v">
+                                    <!-- Trouver l'ordre de réparation lié pour le km -->
+                                    <t t-set="linked_repair"
+                                       t-value="o.env['repair.order'].search(
+                                           [('sale_order_id.invoice_ids', 'in', o.ids),
+                                            ('vehicle_id', '=', v.id)], limit=1)"/>
+                                    <tr>
+                                        <td><strong t-esc="v.license_plate"/></td>
+                                        <td>
+                                            <t t-esc="v.marque or ''"/>
+                                            <t t-if="v.modele"> <t t-esc="v.modele"/></t>
+                                        </td>
+                                        <td><t t-esc="v.annee or ''"/></td>
+                                        <td><t t-esc="v.vin or ''"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         Héritage du template de DEVIS/COMMANDE — ajout bloc véhicule(s)
+         ═══════════════════════════════════════════════════════════════════ -->
+    <template id="report_saleorder_vehicle" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <t t-set="sale_repairs"
+               t-value="doc.env['repair.order'].search([('sale_order_id', '=', doc.id)])"/>
+            <t t-set="sale_vehicles"
+               t-value="sale_repairs.mapped('vehicle_id').filtered(lambda v: v.id)"/>
+            <t t-if="sale_vehicles">
+                <div class="row mb-3 mt-2">
+                    <div class="col-12">
+                        <table class="table table-sm table-bordered mb-0"
+                               style="font-size:0.9em;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>IMMAT</th>
+                                    <th>Marque / Modèle</th>
+                                    <th>Année</th>
+                                    <th>VIN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="sale_vehicles" t-as="v">
+                                    <tr>
+                                        <td><strong t-esc="v.license_plate"/></td>
+                                        <td>
+                                            <t t-esc="v.marque or ''"/>
+                                            <t t-if="v.modele"> <t t-esc="v.modele"/></t>
+                                        </td>
+                                        <td><t t-esc="v.annee or ''"/></td>
+                                        <td><t t-esc="v.vin or ''"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

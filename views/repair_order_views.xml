@@ -84,6 +84,11 @@
                 <field name="mileage_in" string="Km entrée" optional="hide"/>
                 <field name="date_checkin" string="Entrée" optional="hide"/>
             </xpath>
+            <!-- Remplacer schedule_date : affichage relatif, rouge uniquement si ordre actif -->
+            <xpath expr="//list/field[@name='schedule_date']" position="replace">
+                <field name="schedule_date" optional="show"
+                       widget="repair_remaining_days"/>
+            </xpath>
         </field>
     </record>
 
