@@ -28,6 +28,9 @@ Module professionnel SaaS pour les garages automobiles.
         'repair_stock',
         'mail',
         'sale',
+        'spreadsheet_dashboard',
+        'utm',
+        'account',
     ],
     'assets': {
         'web.assets_backend': [

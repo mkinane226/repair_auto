@@ -6,6 +6,41 @@
          et y ajoute des sous-menus spécifiques garage
          ═══════════════════════════════════════════════════════════════════ -->
 
+    <!-- ════ Menus racines : visibilité et ordre ════════════════════════ -->
+
+    <!-- Masquer Discuss — super admin uniquement -->
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+
+    <!-- Masquer Apps — super admin uniquement -->
+    <record id="base.menu_management" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+
+    <!-- Masquer Tracker de liens — super admin uniquement -->
+    <record id="utm.menu_link_tracker_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+
+    <!-- Ordre : Réparations → 1, Ventes → 2, Facturation → 3, Inventaire → 4 -->
+    <record id="repair.menu_repair_order" model="ir.ui.menu">
+        <field name="sequence">1</field>
+        <field name="web_icon">repair_auto,static/src/img/repair_icon.png</field>
+    </record>
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <field name="sequence">2</field>
+    </record>
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="sequence">3</field>
+    </record>
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="sequence">4</field>
+    </record>
+    <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
+        <field name="sequence">10</field>
+    </record>
+
     <!-- Masquer le menu "Commandes" natif repair -->
     <record id="repair.repair_order_menu" model="ir.ui.menu">
         <field name="active" eval="False"/>
