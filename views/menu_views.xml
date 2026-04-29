@@ -94,4 +94,14 @@
         sequence="10"
         groups="stock.group_stock_manager"
     />
+
+    <!-- Marques de véhicule -->
+    <menuitem
+        id="menu_garage_vehicle_brand"
+        name="Marques"
+        parent="repair.repair_menu_config"
+        action="action_garage_vehicle_brand"
+        sequence="20"
+        groups="stock.group_stock_manager"
+    />
 </odoo>

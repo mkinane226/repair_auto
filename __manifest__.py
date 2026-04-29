@@ -35,6 +35,8 @@ Module professionnel SaaS pour les garages automobiles.
     'assets': {
         'web.assets_backend': [
             'repair_auto/static/src/js/repair_remaining_days_field.js',
+            'repair_auto/static/src/js/kanban_brand_logo.js',
+            'repair_auto/static/src/xml/kanban_brand_logo.xml',
         ],
         'web.report_assets_common': [
             'repair_auto/static/src/css/report_logo.css',
@@ -46,7 +48,9 @@ Module professionnel SaaS pour les garages automobiles.
         'data/product_data.xml',
         'data/repair_tags_data.xml',
         'data/mail_templates.xml',
+        'data/garage_vehicle_brands_data.xml',
         'views/garage_vehicle_views.xml',
+        'views/garage_vehicle_brand_views.xml',
         'views/repair_order_views.xml',
         'views/repair_kanban_views.xml',
         'views/res_config_settings_views.xml',

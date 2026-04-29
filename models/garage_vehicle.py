@@ -49,8 +49,25 @@ class GarageVehicle(models.Model):
     )
 
     # ── Caractéristiques ─────────────────────────────────────────────────────
-    marque = fields.Char(string="Marque", required=True, tracking=True)
-    modele = fields.Char(string="Modèle", required=True, tracking=True)
+    brand_id = fields.Many2one(
+        comodel_name="garage.vehicle.brand",
+        string="Marque",
+        tracking=True,
+        ondelete="restrict",
+    )
+    modele = fields.Char(string="Modèle", tracking=True)
+    # Related stored → compatibilité PDF/rapports (v.marque)
+    marque = fields.Char(
+        string="Marque (texte)",
+        related="brand_id.name",
+        store=True,
+        readonly=True,
+    )
+    brand_logo = fields.Image(
+        string="Logo marque",
+        related="brand_id.image_128",
+        readonly=True,
+    )
     annee = fields.Integer(string="Année", tracking=True)
     couleur = fields.Char(string="Couleur", tracking=True)
     energie = fields.Selection(
@@ -96,7 +113,7 @@ class GarageVehicle(models.Model):
     )
 
     # ── Calculs ───────────────────────────────────────────────────────────────
-    @api.depends("marque", "modele", "license_plate")
+    @api.depends("brand_id", "modele", "license_plate")
     def _compute_display_name(self):
         for rec in self:
             parts = [rec.marque, rec.modele, rec.license_plate]

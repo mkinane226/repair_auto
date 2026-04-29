@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Extends the standard KanbanHeader template to prepend a brand logo
+        (40 px height) before the group title when grouped by brand_id.
+        The JS patch (kanban_brand_logo.js) populates `brandLogoSrc`.
+    -->
+    <t t-inherit="web.KanbanHeader" t-inherit-mode="extension">
+        <xpath expr="//span[@class='text-truncate']" position="before">
+            <img t-if="brandLogoSrc"
+                 t-att-src="brandLogoSrc"
+                 style="height:40px;width:auto;object-fit:contain;flex-shrink:0;align-self:center;"
+                 class="me-2"/>
+        </xpath>
+    </t>
+
+</templates>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="brand_abarth" model="garage.vehicle.brand">
+        <field name="name">Abarth</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/abarth.png"/>
+    </record>
+    <record id="brand_alfa-romeo" model="garage.vehicle.brand">
+        <field name="name">Alfa Romeo</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/alfa-romeo.png"/>
+    </record>
+    <record id="brand_alpine" model="garage.vehicle.brand">
+        <field name="name">Alpine</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/alpine.png"/>
+    </record>
+    <record id="brand_aston-martin" model="garage.vehicle.brand">
+        <field name="name">Aston Martin</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/aston-martin.png"/>
+    </record>
+    <record id="brand_audi" model="garage.vehicle.brand">
+        <field name="name">Audi</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/audi.png"/>
+    </record>
+    <record id="brand_bentley" model="garage.vehicle.brand">
+        <field name="name">Bentley</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/bentley.png"/>
+    </record>
+    <record id="brand_bmw" model="garage.vehicle.brand">
+        <field name="name">BMW</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/bmw.png"/>
+    </record>
+    <record id="brand_bugatti" model="garage.vehicle.brand">
+        <field name="name">Bugatti</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/bugatti.png"/>
+    </record>
+    <record id="brand_byd" model="garage.vehicle.brand">
+        <field name="name">BYD</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/byd.png"/>
+    </record>
+    <record id="brand_cadillac" model="garage.vehicle.brand">
+        <field name="name">Cadillac</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/cadillac.png"/>
+    </record>
+    <record id="brand_chery" model="garage.vehicle.brand">
+        <field name="name">Chery</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/chery.png"/>
+    </record>
+    <record id="brand_chevrolet" model="garage.vehicle.brand">
+        <field name="name">Chevrolet</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/chevrolet.png"/>
+    </record>
+    <record id="brand_citroen" model="garage.vehicle.brand">
+        <field name="name">Citroën</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/citroen.png"/>
+    </record>
+    <record id="brand_cupra" model="garage.vehicle.brand">
+        <field name="name">Cupra</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/cupra.png"/>
+    </record>
+    <record id="brand_dacia" model="garage.vehicle.brand">
+        <field name="name">Dacia</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/dacia.png"/>
+    </record>
+    <record id="brand_daewoo" model="garage.vehicle.brand">
+        <field name="name">Daewoo</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/daewoo.png"/>
+    </record>
+    <record id="brand_daihatsu" model="garage.vehicle.brand">
+        <field name="name">Daihatsu</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/daihatsu.png"/>
+    </record>
+    <record id="brand_dodge" model="garage.vehicle.brand">
+        <field name="name">Dodge</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/dodge.png"/>
+    </record>
+    <record id="brand_ds" model="garage.vehicle.brand">
+        <field name="name">DS</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/ds.png"/>
+    </record>
+    <record id="brand_ferrari" model="garage.vehicle.brand">
+        <field name="name">Ferrari</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/ferrari.png"/>
+    </record>
+    <record id="brand_fiat" model="garage.vehicle.brand">
+        <field name="name">Fiat</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/fiat.png"/>
+    </record>
+    <record id="brand_ford" model="garage.vehicle.brand">
+        <field name="name">Ford</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/ford.png"/>
+    </record>
+    <record id="brand_genesis" model="garage.vehicle.brand">
+        <field name="name">Genesis</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/genesis.png"/>
+    </record>
+    <record id="brand_gmc" model="garage.vehicle.brand">
+        <field name="name">GMC</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/gmc.png"/>
+    </record>
+    <record id="brand_haval" model="garage.vehicle.brand">
+        <field name="name">Haval</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/haval.png"/>
+    </record>
+    <record id="brand_honda" model="garage.vehicle.brand">
+        <field name="name">Honda</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/honda.png"/>
+    </record>
+    <record id="brand_hummer" model="garage.vehicle.brand">
+        <field name="name">Hummer</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/hummer.png"/>
+    </record>
+    <record id="brand_hyundai" model="garage.vehicle.brand">
+        <field name="name">Hyundai</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/hyundai.png"/>
+    </record>
+    <record id="brand_infiniti" model="garage.vehicle.brand">
+        <field name="name">Infiniti</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/infiniti.png"/>
+    </record>
+    <record id="brand_isuzu" model="garage.vehicle.brand">
+        <field name="name">Isuzu</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/isuzu.png"/>
+    </record>
+    <record id="brand_iveco" model="garage.vehicle.brand">
+        <field name="name">Iveco</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/iveco.png"/>
+    </record>
+    <record id="brand_jaguar" model="garage.vehicle.brand">
+        <field name="name">Jaguar</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/jaguar.png"/>
+    </record>
+    <record id="brand_jeep" model="garage.vehicle.brand">
+        <field name="name">Jeep</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/jeep.png"/>
+    </record>
+    <record id="brand_kia" model="garage.vehicle.brand">
+        <field name="name">Kia</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/kia.png"/>
+    </record>
+    <record id="brand_koenigsegg" model="garage.vehicle.brand">
+        <field name="name">Koenigsegg</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/koenigsegg.png"/>
+    </record>
+    <record id="brand_lada" model="garage.vehicle.brand">
+        <field name="name">Lada</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lada.png"/>
+    </record>
+    <record id="brand_lamborghini" model="garage.vehicle.brand">
+        <field name="name">Lamborghini</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lamborghini.png"/>
+    </record>
+    <record id="brand_lancia" model="garage.vehicle.brand">
+        <field name="name">Lancia</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lancia.png"/>
+    </record>
+    <record id="brand_land-rover" model="garage.vehicle.brand">
+        <field name="name">Land Rover</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/land-rover.png"/>
+    </record>
+    <record id="brand_laraki" model="garage.vehicle.brand">
+        <field name="name">Laraki</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/laraki.png"/>
+    </record>
+    <record id="brand_lexus" model="garage.vehicle.brand">
+        <field name="name">Lexus</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lexus.png"/>
+    </record>
+    <record id="brand_lincoln" model="garage.vehicle.brand">
+        <field name="name">Lincoln</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lincoln.png"/>
+    </record>
+    <record id="brand_lotus" model="garage.vehicle.brand">
+        <field name="name">Lotus</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/lotus.png"/>
+    </record>
+    <record id="brand_man" model="garage.vehicle.brand">
+        <field name="name">MAN</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/man.png"/>
+    </record>
+    <record id="brand_maserati" model="garage.vehicle.brand">
+        <field name="name">Maserati</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/maserati.png"/>
+    </record>
+    <record id="brand_maybach" model="garage.vehicle.brand">
+        <field name="name">Maybach</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/maybach.png"/>
+    </record>
+    <record id="brand_mazda" model="garage.vehicle.brand">
+        <field name="name">Mazda</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mazda.png"/>
+    </record>
+    <record id="brand_mclaren" model="garage.vehicle.brand">
+        <field name="name">McLaren</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mclaren.png"/>
+    </record>
+    <record id="brand_mercedes-amg" model="garage.vehicle.brand">
+        <field name="name">Mercedes-AMG</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mercedes-amg.png"/>
+    </record>
+    <record id="brand_mercedes-benz" model="garage.vehicle.brand">
+        <field name="name">Mercedes-Benz</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mercedes-benz.png"/>
+    </record>
+    <record id="brand_mg" model="garage.vehicle.brand">
+        <field name="name">MG</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mg.png"/>
+    </record>
+    <record id="brand_mini" model="garage.vehicle.brand">
+        <field name="name">Mini</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mini.png"/>
+    </record>
+    <record id="brand_mitsubishi" model="garage.vehicle.brand">
+        <field name="name">Mitsubishi</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/mitsubishi.png"/>
+    </record>
+    <record id="brand_morgan" model="garage.vehicle.brand">
+        <field name="name">Morgan</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/morgan.png"/>
+    </record>
+    <record id="brand_nissan" model="garage.vehicle.brand">
+        <field name="name">Nissan</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/nissan.png"/>
+    </record>
+    <record id="brand_opel" model="garage.vehicle.brand">
+        <field name="name">Opel</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/opel.png"/>
+    </record>
+    <record id="brand_pagani" model="garage.vehicle.brand">
+        <field name="name">Pagani</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/pagani.png"/>
+    </record>
+    <record id="brand_peugeot" model="garage.vehicle.brand">
+        <field name="name">Peugeot</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/peugeot.png"/>
+    </record>
+    <record id="brand_polestar" model="garage.vehicle.brand">
+        <field name="name">Polestar</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/polestar.png"/>
+    </record>
+    <record id="brand_porsche" model="garage.vehicle.brand">
+        <field name="name">Porsche</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/porsche.png"/>
+    </record>
+    <record id="brand_ram" model="garage.vehicle.brand">
+        <field name="name">RAM</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/ram.png"/>
+    </record>
+    <record id="brand_renault" model="garage.vehicle.brand">
+        <field name="name">Renault</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/renault.png"/>
+    </record>
+    <record id="brand_rolls-royce" model="garage.vehicle.brand">
+        <field name="name">Rolls-Royce</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/rolls-royce.png"/>
+    </record>
+    <record id="brand_rover" model="garage.vehicle.brand">
+        <field name="name">Rover</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/rover.png"/>
+    </record>
+    <record id="brand_saab" model="garage.vehicle.brand">
+        <field name="name">Saab</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/saab.png"/>
+    </record>
+    <record id="brand_scania" model="garage.vehicle.brand">
+        <field name="name">Scania</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/scania.png"/>
+    </record>
+    <record id="brand_seat" model="garage.vehicle.brand">
+        <field name="name">SEAT</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/seat.png"/>
+    </record>
+    <record id="brand_skoda" model="garage.vehicle.brand">
+        <field name="name">Skoda</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/skoda.png"/>
+    </record>
+    <record id="brand_smart" model="garage.vehicle.brand">
+        <field name="name">Smart</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/smart.png"/>
+    </record>
+    <record id="brand_ssangyong" model="garage.vehicle.brand">
+        <field name="name">SsangYong</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/ssangyong.png"/>
+    </record>
+    <record id="brand_subaru" model="garage.vehicle.brand">
+        <field name="name">Subaru</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/subaru.png"/>
+    </record>
+    <record id="brand_suzuki" model="garage.vehicle.brand">
+        <field name="name">Suzuki</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/suzuki.png"/>
+    </record>
+    <record id="brand_tesla" model="garage.vehicle.brand">
+        <field name="name">Tesla</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/tesla.png"/>
+    </record>
+    <record id="brand_toyota" model="garage.vehicle.brand">
+        <field name="name">Toyota</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/toyota.png"/>
+    </record>
+    <record id="brand_vauxhall" model="garage.vehicle.brand">
+        <field name="name">Vauxhall</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/vauxhall.png"/>
+    </record>
+    <record id="brand_volkswagen" model="garage.vehicle.brand">
+        <field name="name">Volkswagen</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/volkswagen.png"/>
+    </record>
+    <record id="brand_volvo" model="garage.vehicle.brand">
+        <field name="name">Volvo</field>
+        <field name="image_128" type="base64" file="repair_auto/static/img/volvo.png"/>
+    </record>
+</odoo>

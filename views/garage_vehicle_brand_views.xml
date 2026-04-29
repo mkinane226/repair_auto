@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ── Marques ─────────────────────────────────────────────────────── -->
+    <record id="view_garage_vehicle_brand_list" model="ir.ui.view">
+        <field name="name">garage.vehicle.brand.list</field>
+        <field name="model">garage.vehicle.brand</field>
+        <field name="arch" type="xml">
+            <list string="Marques" editable="bottom">
+                <field name="image_128" widget="image" string="Logo"
+                       options="{'size': [32, 32]}"/>
+                <field name="name" string="Marque"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_garage_vehicle_brand_form" model="ir.ui.view">
+        <field name="name">garage.vehicle.brand.form</field>
+        <field name="model">garage.vehicle.brand</field>
+        <field name="arch" type="xml">
+            <form string="Marque">
+                <sheet>
+                    <field name="image_128" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Nom de la marque"/></h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_garage_vehicle_brand" model="ir.actions.act_window">
+        <field name="name">Marques</field>
+        <field name="res_model">garage.vehicle.brand</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

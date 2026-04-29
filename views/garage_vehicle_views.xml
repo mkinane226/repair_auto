@@ -8,8 +8,8 @@
             <list string="Véhicules" multi_edit="1" decoration-muted="not active">
                 <field name="license_plate" string="Immatriculation"/>
                 <field name="partner_id" string="Client"/>
-                <field name="marque"/>
-                <field name="modele"/>
+                <field name="brand_id" string="Marque"/>
+                <field name="modele" string="Modèle"/>
                 <field name="annee" optional="show"/>
                 <field name="energie" optional="show" widget="badge"/>
                 <field name="mileage" string="Km" optional="show"/>
@@ -42,8 +42,9 @@
                         <h1>
                             <field name="license_plate" placeholder="AA-000-AA"/>
                         </h1>
-                        <div class="o_row">
-                            <field name="marque" placeholder="Marque" class="me-2"/>
+                        <div class="o_row align-items-center">
+                            <field name="brand_id" placeholder="Marque" class="me-2"
+                                   options="{'no_open': False}"/>
                             <field name="modele" placeholder="Modèle"/>
                         </div>
                     </div>
@@ -61,6 +62,11 @@
                         <group string="État">
                             <field name="mileage" string="Kilométrage (km)"/>
                             <field name="last_repair_date" string="Dernière réparation" readonly="1"/>
+                            <field name="brand_logo" widget="image"
+                                   style="object-fit:contain;"
+                                   invisible="not brand_logo"
+                                   nolabel="1"
+                                   readonly="1"/>
                             <field name="active" invisible="1"/>
                         </group>
                     </group>
@@ -98,8 +104,8 @@
             <search string="Rechercher un véhicule">
                 <field name="license_plate" string="Immatriculation" filter_domain="[('license_plate', 'ilike', self)]"/>
                 <field name="partner_id" string="Client"/>
-                <field name="marque"/>
-                <field name="modele"/>
+                <field name="brand_id" string="Marque"/>
+                <field name="modele" string="Modèle"/>
                 <field name="vin" string="VIN"/>
                 <separator/>
                 <filter string="Essence" name="gasoline" domain="[('energie','=','gasoline')]"/>
@@ -110,7 +116,7 @@
                 <filter string="Archivés" name="inactive" domain="[('active','=',False)]"/>
                 <group expand="0" string="Regrouper par">
                     <filter string="Client" name="group_partner" context="{'group_by': 'partner_id'}"/>
-                    <filter string="Marque" name="group_marque" context="{'group_by': 'marque'}"/>
+                    <filter string="Marque" name="group_marque" context="{'group_by': 'brand_id'}"/>
                     <filter string="Énergie" name="group_energie" context="{'group_by': 'energie'}"/>
                 </group>
             </search>
@@ -122,18 +128,23 @@
         <field name="name">garage.vehicle.kanban</field>
         <field name="model">garage.vehicle</field>
         <field name="arch" type="xml">
-            <kanban string="Véhicules" default_group_by="marque"
-                    class="o_kanban_small_column" sample="1">
+            <kanban string="Véhicules" default_group_by="brand_id"
+                    class="o_kanban_small_column" sample="1"
+                    quick_create="false"
+                    group_create="false"
+                    group_delete="false">
                 <field name="id"/>
                 <field name="license_plate"/>
                 <field name="partner_id"/>
-                <field name="marque"/>
+                <field name="brand_id"/>
                 <field name="modele"/>
+                <field name="marque"/>
                 <field name="annee"/>
                 <field name="energie"/>
                 <field name="mileage"/>
                 <field name="repair_count"/>
                 <field name="image_128"/>
+                <field name="brand_logo"/>
                 <field name="active"/>
                 <templates>
                     <t t-name="card">
@@ -148,7 +159,7 @@
                                     <strong><field name="license_plate"/></strong>
                                 </div>
                                 <div class="o_secondary">
-                                    <field name="marque"/> <field name="modele"/>
+                                    <field name="brand_id"/> <field name="modele"/>
                                     <t t-if="record.annee.value">
                                         (<field name="annee"/>)
                                     </t>
