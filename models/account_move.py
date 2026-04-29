@@ -13,6 +13,11 @@ class AccountMove(models.Model):
         compute="_compute_repair_vehicle_ids",
         store=False,
     )
+    repair_vehicle_info = fields.Char(
+        string="Kilométrage",
+        compute="_compute_repair_vehicle_info",
+        store=False,
+    )
 
     @api.depends("invoice_line_ids")
     def _compute_repair_vehicle_ids(self):
@@ -32,3 +37,13 @@ class AccountMove(models.Model):
                 [("sale_order_id", "in", sale_orders.ids)]
             )
             move.repair_vehicle_ids = repairs.mapped("vehicle_id").filtered(bool)
+
+    @api.depends("invoice_line_ids")
+    def _compute_repair_vehicle_info(self):
+        for move in self:
+            vehicles = move.repair_vehicle_ids
+            mileages = [
+                "%s km" % "{:,}".format(v.mileage).replace(",", "\u202f")
+                for v in vehicles if v.mileage
+            ]
+            move.repair_vehicle_info = "  |  ".join(mileages) if mileages else False

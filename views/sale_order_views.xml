@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Affiche le(s) véhicule(s) lié(s) sous le champ client dans devis/commande -->
+    <record id="view_sale_order_form_vehicle" model="ir.ui.view">
+        <field name="name">sale.order.form.vehicle</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='partner_details']/field[@name='partner_id']"
+                   position="after">
+                <field name="repair_vehicle_ids"
+                       string="Véhicule(s)"
+                       readonly="1"
+                       widget="many2many_tags"
+                       invisible="not repair_vehicle_ids"
+                       options="{'no_create': True, 'no_edit': True, 'no_open': False}"/>
+                <field name="repair_vehicle_info"
+                       string="Kilométrage"
+                       readonly="1"
+                       invisible="not repair_vehicle_info"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -10,4 +10,9 @@
         <field name="binding_model_id" search="[('model', '=', 'repair.order')]" model="ir.model"/>
         <field name="binding_type">report</field>
     </record>
+
+    <!-- Retirer le rapport natif "Ordre de réparation" du menu Imprimer -->
+    <record id="repair.action_report_repair_order" model="ir.actions.report">
+        <field name="binding_model_id" eval="False"/>
+    </record>
 </odoo>

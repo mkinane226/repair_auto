@@ -19,6 +19,7 @@
                                     <th>Marque / Modèle</th>
                                     <th>Année</th>
                                     <th>VIN</th>
+                                    <th>Kilométrage</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +37,11 @@
                                         </td>
                                         <td><t t-esc="v.annee or ''"/></td>
                                         <td><t t-esc="v.vin or ''"/></td>
+                                        <td>
+                                            <t t-if="v.mileage">
+                                                <t t-esc="'{:,}'.format(v.mileage).replace(',', '\u202f')"/> km
+                                            </t>
+                                        </td>
                                     </tr>
                                 </t>
                             </tbody>
@@ -66,6 +72,7 @@
                                     <th>Marque / Modèle</th>
                                     <th>Année</th>
                                     <th>VIN</th>
+                                    <th>Kilométrage</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,6 +85,11 @@
                                         </td>
                                         <td><t t-esc="v.annee or ''"/></td>
                                         <td><t t-esc="v.vin or ''"/></td>
+                                        <td>
+                                            <t t-if="v.mileage">
+                                                <t t-esc="'{:,}'.format(v.mileage).replace(',', '\u202f')"/> km
+                                            </t>
+                                        </td>
                                     </tr>
                                 </t>
                             </tbody>

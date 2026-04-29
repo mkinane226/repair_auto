@@ -147,33 +147,36 @@
                                 <span groups="uom.group_uom" t-field="line.product_uom.name"/>
                             </td>
                         </tr>
+                        <!-- Lignes vides pour remplissage manuel -->
+                        <tr style="height: 32px;"><td/><td/></tr>
+                        <tr style="height: 32px;"><td/><td/></tr>
+                        <tr style="height: 32px;"><td/><td/></tr>
                     </tbody>
                 </table>
 
                 <!-- ── Services (OCA repair_service) ─────────────────────── -->
-                <t t-if="o.service_ids">
-                    <div class="oe_structure"/>
-                    <h3 class="mb-3 border-bottom border-2 border-dark">Main-d'œuvre</h3>
-                    <table class="table table-sm o_main_table">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th class="text-center">Qté</th>
-                                <th class="text-end">Montant</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr t-foreach="o.service_ids" t-as="svc">
-                                <td><span t-field="svc.product_id"/></td>
-                                <td class="text-center"><span t-field="svc.product_uom_qty"/></td>
-                                <td class="text-end">
-                                    <span t-field="svc.price_subtotal"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </t>
+                <div class="oe_structure"/>
+                <h3 class="mb-3 border-bottom border-2 border-dark">Main-d'œuvre</h3>
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-center">Qté</th>
+                            <th class="text-center">Unité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.repair_service_ids" t-as="svc">
+                            <td><span t-field="svc.display_name"/></td>
+                            <td class="text-center"><span t-field="svc.product_uom_qty"/></td>
+                            <td class="text-center"><span t-field="svc.product_uom.name"/></td>
+                        </tr>
+                        <!-- Lignes vides pour remplissage manuel -->
+                        <tr style="height: 32px;"><td/><td/><td/></tr>
+                        <tr style="height: 32px;"><td/><td/><td/></tr>
+                        <tr style="height: 32px;"><td/><td/><td/></tr>
+                    </tbody>
+                </table>
 
                 <!-- ── Notes de réparation ────────────────────────────────── -->
                 <t t-if="o.internal_notes">
