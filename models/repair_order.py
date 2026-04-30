@@ -43,6 +43,20 @@ class RepairOrder(models.Model):
         string="Date de sortie",
     )
 
+    vehicle_brand_id = fields.Many2one(
+        comodel_name="garage.vehicle.brand",
+        related="vehicle_id.brand_id",
+        string="Marque du véhicule",
+        readonly=True,
+    )
+    schedule_date_only = fields.Date(
+        string="Date planifiée",
+        compute="_compute_schedule_date_only",
+    )
+
+    # Force l'ordre des colonnes kanban (draft → confirmed → under_repair → done → cancel)
+    state = fields.Selection(group_expand="_group_expand_states")
+
     # ── Diagnostic ────────────────────────────────────────────────────────────
     customer_complaint = fields.Text(
         string="Plainte client",
@@ -184,3 +198,14 @@ class RepairOrder(models.Model):
                 if not rec.date_checkout:
                     rec.date_checkout = fields.Datetime.now()
         return result
+
+    # ── Kanban column ordering ────────────────────────────────────────────────
+    @api.model
+    def _group_expand_states(self, states, domain):
+        """Force les colonnes kanban dans l'ordre du workflow."""
+        return ["draft", "confirmed", "under_repair", "done", "cancel"]
+
+    @api.depends("schedule_date")
+    def _compute_schedule_date_only(self):
+        for rec in self:
+            rec.schedule_date_only = rec.schedule_date.date() if rec.schedule_date else False
