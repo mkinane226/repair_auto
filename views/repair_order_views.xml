@@ -16,24 +16,70 @@
                         invisible="invoice_count == 0">
                     <field name="invoice_count" widget="statinfo" string="Factures"/>
                 </button>
+                <button name="action_view_comebacks" type="object"
+                        class="oe_stat_button" icon="fa-undo"
+                        invisible="comeback_count == 0">
+                    <field name="comeback_count" widget="statinfo" string="Retours atelier"/>
+                </button>
             </xpath>
 
-            <!-- 2. Bloc véhicule — inséré avant partner_id dans le premier group -->
-            <xpath expr="//field[@name='partner_id']" position="before">
-                <field name="vehicle_id"
-                       context="{'default_partner_id': partner_id}"
-                       options="{'no_quick_create': True}"/>
-                <field name="date_checkin"/>
-                <field name="estimated_completion"/>
+            <!-- 2. Réorganisation complète du groupe principal -->
+            <xpath expr="//group[field[@name='repair_properties']]" position="replace">
+                <group>
+                    <!-- ── Colonne gauche ──────────────────────────────── -->
+                    <group>
+                        <field name="allowed_lot_ids" invisible="1"/>
+                        <field name="repair_request" invisible="not sale_order_line_id"/>
+                        <field name="product_uom_category_id" invisible="1"/>
+                        <field name="product_id" string="Produit à réparer" readonly="1"/>
+                        <field name="vehicle_id"
+                               context="{'default_partner_id': partner_id}"
+                               options="{'no_quick_create': True}"/>
+                        <field name="partner_id" widget="res_partner_many2one"
+                               context="{'res_partner_search_mode': 'customer', 'show_vat': True}"
+                               readonly="sale_order_id"/>
+                        <field name="lot_id" context="{'default_product_id': product_id}"
+                               groups="stock.group_production_lot"
+                               options="{'no_create': True, 'no_create_edit': True}"
+                               invisible="tracking not in ['serial', 'lot']"
+                               readonly="state == 'done'"
+                               required="tracking in ['serial', 'lot']"/>
+                        <label for="product_qty" invisible="not product_id"/>
+                        <div class="o_row" invisible="not product_id">
+                            <field name="product_qty" readonly="tracking == 'serial' or state in ('done', 'cancel')"/>
+                            <field name="product_uom" groups="uom.group_uom" readonly="state != 'draft'"/>
+                        </div>
+                        <field name="mileage_in" string="Km entrée" invisible="not vehicle_id"/>
+                        <field name="fuel_level" invisible="not vehicle_id"/>
+                        <field name="repair_origin_id"
+                               domain="[('state', '=', 'done')]"
+                               options="{'no_create': True}"
+                               placeholder="Laisser vide si nouvelle intervention"/>
+                        <field name="under_warranty" readonly="state in ['cancel', 'done']"/>
+                    </group>
+                    <!-- ── Colonne droite ──────────────────────────────── -->
+                    <group>
+                        <field name="date_checkin"/>
+                        <field name="schedule_date" readonly="state in ['done', 'cancel']"/>
+                        <field name="estimated_completion"/>
+                        <field name="user_id" domain="[('share', '=', False)]"/>
+                        <field name="tag_ids" widget="many2many_tags"
+                               options="{'color_field': 'color', 'no_create_edit': True}"
+                               placeholder="Vidange | Freinage | Diagnostic…"/>
+                        <field name="picking_id" invisible="1"/>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        <field name="parts_availability_state" invisible="True"/>
+                        <field name="parts_availability"
+                               invisible="state not in ['confirmed', 'under_repair']"
+                               decoration-success="parts_availability_state == 'available'"
+                               decoration-warning="parts_availability_state == 'expected'"
+                               decoration-danger="parts_availability_state == 'late'"/>
+                    </group>
+                    <field name="repair_properties" nolabel="1" columns="2" hideAddButton="1"/>
+                </group>
             </xpath>
 
-            <!-- 3. Champs kilométrage / carburant — après partner_id -->
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="mileage_in" string="Km entrée" invisible="not vehicle_id"/>
-                <field name="fuel_level" invisible="not vehicle_id"/>
-            </xpath>
-
-            <!-- 4. Page "Réception" ajoutée dans le notebook (avant "Repair Notes") -->
+            <!-- 3. Page "Réception / Restitution" dans le notebook (avant "Repair Notes") -->
             <xpath expr="//page[@name='repair_notes']" position="before">
                 <page string="Réception / Restitution" name="garage_reception">
                     <group>
@@ -59,10 +105,11 @@
                 </page>
             </xpath>
 
-            <!-- 5. Champs techniques invisibles requis pour les computed -->
+            <!-- 4. Champs techniques invisibles requis pour les computed -->
             <xpath expr="//form/field[@name='has_uncomplete_moves']" position="after">
                 <field name="invoice_count" invisible="1"/>
                 <field name="invoice_state" invisible="1"/>
+                <field name="comeback_count" invisible="1"/>
             </xpath>
 
         </field>

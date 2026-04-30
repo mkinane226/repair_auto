@@ -1,6 +1,8 @@
 # Copyright 2024 Garage Auto SaaS
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
+from datetime import timedelta
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -56,6 +58,25 @@ class RepairOrder(models.Model):
 
     # Force l'ordre des colonnes kanban (draft → confirmed → under_repair → done → cancel)
     state = fields.Selection(group_expand="_group_expand_states")
+
+    # Date planifiée : par défaut J+1
+    schedule_date = fields.Datetime(
+        default=lambda self: fields.Datetime.now() + timedelta(days=1),
+    )
+
+    # ── Retour atelier (comeback) ─────────────────────────────────────────────
+    repair_origin_id = fields.Many2one(
+        comodel_name="repair.order",
+        string="Réparation d'origine",
+        ondelete="set null",
+        copy=False,
+        index=True,
+        help="Ordre de réparation initial dont découle ce retour atelier.",
+    )
+    comeback_count = fields.Integer(
+        string="Retours atelier",
+        compute="_compute_comeback_count",
+    )
 
     # ── Diagnostic ────────────────────────────────────────────────────────────
     customer_complaint = fields.Text(
@@ -204,6 +225,21 @@ class RepairOrder(models.Model):
     def _group_expand_states(self, states, domain):
         """Force les colonnes kanban dans l'ordre du workflow."""
         return ["draft", "confirmed", "under_repair", "done", "cancel"]
+
+    def _compute_comeback_count(self):
+        for rec in self:
+            rec.comeback_count = self.search_count([("repair_origin_id", "=", rec.id)])
+
+    def action_view_comebacks(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Retours atelier",
+            "res_model": "repair.order",
+            "view_mode": "list,form",
+            "domain": [("repair_origin_id", "=", self.id)],
+            "context": {"default_repair_origin_id": self.id},
+        }
 
     @api.depends("schedule_date")
     def _compute_schedule_date_only(self):
